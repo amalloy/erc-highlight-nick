@@ -81,16 +81,16 @@
 (require 'erc)
 (require 'erc-button)
 
+(defun set-highlight-nick-suffix (name value)
+  (setq erc-highlight-face-table  (make-hash-table :test 'equal)
+        erc-highlight-nick-suffix value))
+
 (defcustom erc-highlight-nick-suffix ""
   "Pseudo-random seed for generating different nick-color hashes. Set this
 to any string you want in order to get new, totally different nick hash colors."
   :type 'string
   :group 'erc-faces
   :set 'set-highlight-nick-suffix)
-
-(defun set-highlight-nick-suffix (name value)
-  (setq erc-highlight-face-table  (make-hash-table :test 'equal)
-        erc-highlight-nick-suffix value))
 
 (defface erc-highlight-nick-base-face
   '((t nil))
