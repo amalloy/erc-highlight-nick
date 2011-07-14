@@ -89,8 +89,8 @@ to any string you want in order to get new, totally different nick hash colors."
   :set 'set-highlight-nick-suffix)
 
 (defun set-highlight-nick-suffix (name value)
-  (setq erc-highlight-face-table (make-hash-table :test 'equal))
-  (setq erc-highlight-nick-suffix value))
+  (setq erc-highlight-face-table  (make-hash-table :test 'equal)
+        erc-highlight-nick-suffix value))
 
 (defface erc-highlight-nick-base-face
   '((t nil))
