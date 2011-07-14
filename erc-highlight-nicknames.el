@@ -81,6 +81,17 @@
 (require 'erc)
 (require 'erc-button)
 
+(defcustom erc-highlight-nick-suffix ""
+  "Pseudo-random seed for generating different nick-color hashes. Set this
+to any string you want in order to get new, totally different nick hash colors."
+  :type 'string
+  :group 'erc-faces
+  :set 'set-highlight-nick-suffix)
+
+(defun set-highlight-nick-suffix (name value)
+  (setq erc-highlight-face-table (make-hash-table :test 'equal))
+  (setq erc-highlight-nick-suffix value))
+
 (defface erc-highlight-nick-base-face
   '((t nil))
   "Base face used for highlighting nicks in erc. (Before the nick
@@ -125,7 +136,9 @@ color (#rrrrggggbbbb)."
         (when (erc-get-server-user word)
           (setq new-nick-face (gethash word erc-highlight-face-table))
           (unless new-nick-face
-            (setq color (concat "#" (substring (md5 (downcase word)) 0 12)))
+            (setq color (concat "#" (substring (md5 (concat (downcase word)
+                                                            erc-highlight-nick-suffix))
+                                               0 12)))
             (if (equal (cdr (assoc 'background-mode (frame-parameters))) 'dark)
                 ;; if too dark for background
                 (when (< (hexcolor-luminance color) 85)
