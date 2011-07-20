@@ -133,7 +133,7 @@ color (#rrrrggggbbbb)."
         (setq bounds (bounds-of-thing-at-point 'word))
         (setq word (buffer-substring-no-properties
                     (car bounds) (cdr bounds)))
-        (when (erc-get-server-user word)
+        (when (erc-get-channel-user word)
           (setq new-nick-face (gethash word erc-highlight-face-table))
           (unless new-nick-face
             (setq color (concat "#" (substring (md5 (concat (downcase word)
